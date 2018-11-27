@@ -8,6 +8,9 @@ class Course:
         self.grades.append(score)
         self.calcGPA()
 
+    def getTitle(self):
+        return self.title
+
     def calcGPA(self):
         """
         Adjusts the GPA of the student based on values in grades[]
@@ -33,7 +36,7 @@ class Course:
         :param self:
         :return:
         """
-        string = f"{self.title.title()}"
+        string = f"{self.title}"
         if self.grades:
             string += "\tGrades: " + str(self.grades)
             string += f" Resulting GPA: {self.gpa}"
