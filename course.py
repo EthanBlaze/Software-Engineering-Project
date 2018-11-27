@@ -1,3 +1,8 @@
+from inputErrors import GradeNegativeError
+from inputErrors import GradeTooLargeError
+from inputErrors import GradeNotDigitError
+
+
 class Course:
     def __init__(self, title):
         self.title = title
@@ -5,8 +10,24 @@ class Course:
         self.gpa = ' '
 
     def addGrade(self, score):
-        self.grades.append(score)
-        self.calcGPA()
+        try:
+            if any(str.isdigit(c) for c in self.grades):
+                for n in self.grades:
+                    if n < 0:
+                        raise GradeNegativeError
+                    elif n > 120:
+                        raise GradeTooLargeError
+                    else:
+                        self.grades.append(score)
+                        self.calcGPA()
+            else:
+                raise GradeNotDigitError
+        except GradeNegativeError:
+            return "Grades cannot be negative."
+        except GradeTooLargeError:
+            return "Grade is too large."
+        except GradeNotDigitError:
+            return "Grades must be a number."
 
     def getTitle(self):
         return self.title
